@@ -2,12 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, NavLink } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./App.css"; // estilos personalizados
+import "./App.css"; // tus estilos personalizados
 
 // 🔹 NAVBAR
 function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg fixed-top shadow-sm">
+    <nav className="navbar navbar-expand-lg fixed-top shadow-sm bg-light">
       <div className="container">
         <NavLink className="navbar-brand" to="/">
           <img
@@ -61,68 +61,34 @@ function Home() {
         >
           {/* Indicadores */}
           <div className="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="0"
-              className="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleIndicators"
-              data-bs-slide-to="3"
-              aria-label="Slide 4"
-            ></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
           </div>
 
           {/* Imágenes */}
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="/img/login/img1.png" className="d-block w-100 custom-carousel" alt="Slide 1" />
+              <img src="/img/img1.png" className="d-block w-100 custom-carousel" alt="Slide 1" />
             </div>
             <div className="carousel-item">
-              <img src="/img/login/img2.png" className="d-block w-100 custom-carousel" alt="Slide 2" />
+              <img src="/img/img2.png" className="d-block w-100 custom-carousel" alt="Slide 2" />
             </div>
             <div className="carousel-item">
-              <img src="/img/login/img3.png" className="d-block w-100 custom-carousel" alt="Slide 3" />
+              <img src="/img/img3.png" className="d-block w-100 custom-carousel" alt="Slide 3" />
             </div>
             <div className="carousel-item">
-              <img src="/img/login/img4.png" className="d-block w-100 custom-carousel" alt="Slide 4" />
+              <img src="/img/img4.png" className="d-block w-100 custom-carousel" alt="Slide 4" />
             </div>
           </div>
 
-          {/* Botones */}
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="prev"
-          >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Anterior</span>
+          {/* Controles */}
+          <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span className="carousel-control-prev-icon"></span>
           </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleIndicators"
-            data-bs-slide="next"
-          >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="visually-hidden">Siguiente</span>
+          <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span className="carousel-control-next-icon"></span>
           </button>
         </div>
       </section>
@@ -143,11 +109,11 @@ function Login() {
                 <form>
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">Usuario</label>
-                    <input type="text" id="username" name="username" className="form-control" required />
+                    <input type="text" id="username" className="form-control" required />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Contraseña</label>
-                    <input type="password" id="password" name="password" className="form-control" required />
+                    <input type="password" id="password" className="form-control" required />
                   </div>
                   <div className="d-grid">
                     <button type="submit" className="btn btn-primary w-100">Entrar</button>
@@ -175,15 +141,15 @@ function Register() {
                 <form>
                   <div className="mb-3">
                     <label htmlFor="email" className="form-label">Correo electrónico</label>
-                    <input type="email" id="email" name="email" className="form-control" required />
+                    <input type="email" id="email" className="form-control" required />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label">Usuario</label>
-                    <input type="text" id="username" name="username" className="form-control" required />
+                    <input type="text" id="username" className="form-control" required />
                   </div>
                   <div className="mb-3">
                     <label htmlFor="password" className="form-label">Contraseña</label>
-                    <input type="password" id="password" name="password" className="form-control" required />
+                    <input type="password" id="password" className="form-control" required />
                   </div>
                   <div className="d-grid">
                     <button type="submit" className="btn btn-success w-100">Registrarse</button>
