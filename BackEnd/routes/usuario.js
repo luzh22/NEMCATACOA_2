@@ -1,32 +1,52 @@
 const express = require('express');
-const router = express.Router();
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+const pool = require('../config/database');
 
-// Registro de usuario
-router.post('/', async (req, res) => {
-  const { nombre, apellido, usuario, email, password, fechaNacimiento, ubicacion } = req.body;
+const router = express.Router();
+
+// Registro de usuario (POST)
+router.post('/registro', async (req, res) => {
+  const { nombre, email, password, telefono, tipo_usuario } = req.body;
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Verificar si el usuario ya existe
+    const usuarioExiste = await pool.query(
+      'SELECT id FROM usuarios WHERE email = $1',
+      [email]
+    );
 
-    const newUser = await prisma.usuario.create({
-      data: {
-        nombre,
-        apellido,
-        usuario,
-        email,
-        password: hashedPassword,
-        fechaNacimiento: new Date(fechaNacimiento),
-        ubicacion
+    if (usuarioExiste.rows.length > 0) {
+      return res.status(400).json({
+        error: 'El usuario ya existe con ese email'
+      });
+    }
+
+    // Encriptar la contraseña
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Insertar nuevo usuario
+    const nuevoUsuario = await pool.query(
+      'INSERT INTO usuarios (nombre, email, password, telefono, tipo_usuario) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [nombre, email, passwordHash, telefono, tipo_usuario || 'turista']
+    );
+
+    res.status(201).json({
+      message: 'Usuario registrado exitosamente',
+      usuario: {
+        id: nuevoUsuario.rows[0].id,
+        nombre: nuevoUsuario.rows[0].nombre,
+        email: nuevoUsuario.rows[0].email,
+        telefono: nuevoUsuario.rows[0].telefono,
+        tipo_usuario: nuevoUsuario.rows[0].tipo_usuario
       }
     });
 
-    res.status(201).json({ message: 'Usuario creado', user: newUser });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'No se pudo crear el usuario', details: error.message });
+    console.error('Error en el registro:', error);
+    res.status(500).json({
+      error: 'Error interno del servidor',
+      details: error.message
+    });
   }
 });
 

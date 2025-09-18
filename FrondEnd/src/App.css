@@ -1,0 +1,166 @@
+/* Carrusel contenedor y tamaño fijo reforzado al máximo */
+.carousel-fixed {
+  width: 800px !important;
+  min-width: 800px !important;
+  max-width: 800px !important;
+  height: 400px !important;
+  min-height: 400px !important;
+  max-height: 400px !important;
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #fff !important;
+  border-radius: 10px !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+  margin: 0 auto !important; /* Centrado horizontal */
+  padding: 0 !important;
+}
+
+/* Centrar el carrusel en la sección */
+#carouselExampleIndicators {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 30px auto 0 auto !important;
+  background: transparent !important;
+  border-radius: 10px !important;
+  padding: 0 !important;
+  /* Eliminar restricciones de ancho aquí para que el centrado funcione */
+  width: auto !important;
+  min-width: unset !important;
+  max-width: unset !important;
+  height: auto !important;
+  min-height: unset !important;
+  max-height: unset !important;
+}
+
+.carousel-fixed img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+  border-radius: 10px !important;
+  background: transparent !important;
+  display: block !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    padding-top: 120px; /* Adjust for fixed navbar */
+    background: linear-gradient(135deg, #1abc9c, #2c3e50);
+}
+
+header {
+    padding: 10px 0;
+    text-align: center;
+    background: transparent;
+}
+
+🔹 NAVBAR 
+
+.navbar {
+    transition: background-color 0.4s ease-out;
+}
+
+.navbar.scrolled {
+    background-color: #ffffff;
+}
+
+.navbar-nav .nav-link {
+    color: #a1c4eb;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    color: #4bceb4;
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+    border: 2px solid #aac7ee;
+    padding: 5px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1);
+}
+
+/* 🔹 HOME */
+
+.home-section,
+.login-section,
+.register-section {
+  min-height: 700px;
+  height: 800px;
+  padding: 30px;
+  margin: 20px auto;
+  text-align: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+
+🔹 LOGIN
+
+
+
+/* Login/Register contenedor */
+.login-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 400px;
+  padding: 40px;
+}
+
+.custom-carousel {
+  max-height: 500px;
+  object-fit: cover;
+}
+
+
+/* Espacio para que el contenido no quede detrás del navbar */
+.main-content {
+  padding: 20px;
+  margin-top: 20px;
+  max-height: 1000px;
+}
+
+/* Título principal */
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p.lead {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+
+
+
+
+/* Botón */
+button.btn {
+  font-size: 1.1rem;
+  padding: 10px;
+}
