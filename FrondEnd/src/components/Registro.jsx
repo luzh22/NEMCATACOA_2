@@ -43,7 +43,9 @@ export default function Register() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        setUbicacion(`Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`);
+        setUbicacion(
+          `Lat: ${latitude.toFixed(4)}, Lng: ${longitude.toFixed(4)}`
+        );
         setCargandoUbicacion(false);
       },
       () => {
@@ -53,13 +55,57 @@ export default function Register() {
     );
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!validarMayorEdad(fechaNacimiento)) {
       alert("Debes ser mayor de edad para registrarte.");
       return;
     }
-    alert(`Registro exitoso ✅\nUbicación: ${ubicacion || "No seleccionada"}`);
+
+    // ✅ Capturar valores de todos los inputs
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;   // ← CORREGIDO
+    const email = document.getElementById("email").value;
+    const username = document.getElementById("username").value;   // ← CORREGIDO
+    const password = document.getElementById("password").value;
+    const telefono = document.getElementById("telefono").value;
+    const birthdate = document.getElementById("birthdate").value; // ← CORREGIDO
+    const location = document.getElementById("location").value || ubicacion; // ← CORREGIDO
+    const tipo_usuario = "turista"; // valor por defecto
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/usuarios/registro",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            nombre,
+            apellido,
+            email,
+            username,
+            password,
+            telefono,
+            birthdate,
+            location,
+            tipo_usuario,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("✅ Usuario registrado correctamente");
+        console.log("Usuario:", data.usuario);
+      } else {
+        alert("❌ Error: " + data.error);
+      }
+    } catch (error) {
+      console.error("Error en la conexión:", error);
+      alert("❌ Error en la conexión con el servidor");
+    }
   };
 
   const hoy = new Date();
@@ -69,7 +115,7 @@ export default function Register() {
 
   return (
     <main className="main-content">
-  <section className="register-section">
+      <section className="register-section">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-5">
@@ -81,7 +127,12 @@ export default function Register() {
                     <label htmlFor="email" className="form-label">
                       Correo electrónico
                     </label>
-                    <input type="email" id="email" className="form-control" required />
+                    <input
+                      type="email"
+                      id="email"
+                      className="form-control"
+                      required
+                    />
                   </div>
 
                   {/* Nombre */}
@@ -89,7 +140,12 @@ export default function Register() {
                     <label htmlFor="nombre" className="form-label">
                       Nombres
                     </label>
-                    <input type="text" id="nombre" className="form-control" required />
+                    <input
+                      type="text"
+                      id="nombre"
+                      className="form-control"
+                      required
+                    />
                   </div>
 
                   {/* Apellido */}
@@ -97,7 +153,25 @@ export default function Register() {
                     <label htmlFor="apellido" className="form-label">
                       Apellidos
                     </label>
-                    <input type="text" id="apellido" className="form-control" required />
+                    <input
+                      type="text"
+                      id="apellido"
+                      className="form-control"
+                      required
+                    />
+                  </div>
+
+                  {/* Teléfono */}
+                  <div className="mb-3">
+                    <label htmlFor="telefono" className="form-label">
+                      Teléfono
+                    </label>
+                    <input
+                      type="text"
+                      id="telefono"
+                      className="form-control"
+                      required
+                    />
                   </div>
 
                   {/* Fecha de nacimiento */}
@@ -108,13 +182,17 @@ export default function Register() {
                     <input
                       type="date"
                       id="birthdate"
-                      className={`form-control ${errorEdad ? "is-invalid" : ""}`}
+                      className={`form-control ${
+                        errorEdad ? "is-invalid" : ""
+                      }`}
                       value={fechaNacimiento}
                       onChange={handleChangeFecha}
                       max={fechaMax}
                       required
                     />
-                    {errorEdad && <div className="invalid-feedback">{errorEdad}</div>}
+                    {errorEdad && (
+                      <div className="invalid-feedback">{errorEdad}</div>
+                    )}
                   </div>
 
                   {/* Ubicación */}
@@ -141,7 +219,9 @@ export default function Register() {
                       onClick={obtenerUbicacion}
                       disabled={cargandoUbicacion}
                     >
-                      {cargandoUbicacion ? "Obteniendo ubicación..." : "Usar mi ubicación actual"}
+                      {cargandoUbicacion
+                        ? "Obteniendo ubicación..."
+                        : "Usar mi ubicación actual"}
                     </button>
 
                     {ubicacion && (
@@ -156,7 +236,12 @@ export default function Register() {
                     <label htmlFor="username" className="form-label">
                       Usuario
                     </label>
-                    <input type="text" id="username" className="form-control" required />
+                    <input
+                      type="text"
+                      id="username"
+                      className="form-control"
+                      required
+                    />
                   </div>
 
                   {/* Contraseña */}
@@ -164,7 +249,12 @@ export default function Register() {
                     <label htmlFor="password" className="form-label">
                       Contraseña
                     </label>
-                    <input type="password" id="password" className="form-control" required />
+                    <input
+                      type="password"
+                      id="password"
+                      className="form-control"
+                      required
+                    />
                   </div>
 
                   {/* Botón */}
