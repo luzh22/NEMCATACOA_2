@@ -1,0 +1,87 @@
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+export default function Inicio() {
+  useEffect(() => {
+    // Inicializar el carrusel de Bootstrap manualmente
+    if (window.bootstrap && window.bootstrap.Carousel) {
+      const carouselElement = document.getElementById('carouselExampleIndicators');
+      if (carouselElement) {
+        new window.bootstrap.Carousel(carouselElement, {
+          interval: 5000,
+          ride: 'carousel',
+        });
+      }
+    }
+  }, []);
+
+  return (
+    <main className="main-content">
+      <section className="home-section text-center">
+        <div className="container">
+          <h1>¿Listo para conocer NEMCATACOA?</h1>
+          <p className="lead">Tecnología que honra países</p>
+        </div>
+
+        {/* Carrusel Bootstrap */}
+        <div
+          id="carouselExampleIndicators"
+          className="carousel slide mt-4"
+          data-bs-ride="carousel"
+        >
+          {/* Indicadores */}
+          <div className="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
+          </div>
+
+          {/* Imágenes */}
+          <div className="carousel-inner">
+            <div className="carousel-item active">
+              <img src="/IMG/img1.png" className="carousel-fixed" alt="Slide 1" />
+            </div>
+            <div className="carousel-item">
+              <img src="/IMG/img2.png" className="carousel-fixed" alt="Slide 2" />
+            </div>
+            <div className="carousel-item">
+              <img src="/IMG/img3.png" className="carousel-fixed" alt="Slide 3" />
+            </div>
+            <div className="carousel-item">
+              <img src="/IMG/img4.png" className="carousel-fixed" alt="Slide 4" />
+            </div>
+          </div>
+
+          {/* Controles */}
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev"
+          >
+            <span className="carousel-control-prev-icon"></span>
+          </button>
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next"
+          >
+            <span className="carousel-control-next-icon"></span>
+          </button>
+        </div>
+
+        {/* Botón CTA */}
+        <div className="mt-5">
+          <Link to="/register" className="btn btn-primary btn-lg shadow">
+            Quiero conocer más
+          </Link>
+        </div>
+      </section>
+    </main>
+  );
+}
