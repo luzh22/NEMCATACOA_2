@@ -1,3 +1,4 @@
+// src/pages/Registro.jsx
 import React, { useState, useEffect } from "react";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,12 +17,13 @@ export default function Registro() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [ubicacion, setUbicacion] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [telefonoPais, setTelefonoPais] = useState("+57"); // por defecto Colombia
   const [cargandoUbicacion, setCargandoUbicacion] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [aceptaPoliticas, setAceptaPoliticas] = useState(false);
   const [mensaje, setMensaje] = useState("");
 
-  // Validaciones en tiempo real (estado de cada regla)
   const [validUsername, setValidUsername] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [passwordLengthOk, setPasswordLengthOk] = useState(false);
@@ -29,14 +31,13 @@ export default function Registro() {
   const [passwordNumberOk, setPasswordNumberOk] = useState(false);
   const [passwordsMatch, setPasswordsMatch] = useState(false);
   const [edadOk, setEdadOk] = useState(false);
+  const [telefonoOk, setTelefonoOk] = useState(true);
 
-  // Fecha máxima (para input date) — usuario debe ser >= 18 años
   const hoy = new Date();
   const fechaMax = new Date(hoy.setFullYear(hoy.getFullYear() - 18))
     .toISOString()
     .split("T")[0];
 
-  // Validadores auxiliares
   const validarEdad = (fecha) => {
     if (!fecha) return false;
     const hoy = new Date();
@@ -49,10 +50,7 @@ export default function Registro() {
     return edad >= 18;
   };
 
-  const validarEmail = (mail) => {
-    // Regex simple para email
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
-  };
+  const validarEmail = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
 
   const validarPasswordRules = (pwd) => {
     setPasswordLengthOk(pwd.length >= 8);
@@ -60,25 +58,21 @@ export default function Registro() {
     setPasswordNumberOk(/\d/.test(pwd));
   };
 
-  // Efectos: ejecutar validaciones cuando cambian los campos
-  useEffect(() => {
-    setValidUsername(username.trim().length >= 3);
-  }, [username]);
+  // Validación teléfono simple: solo dígitos entre 7 y 15 (sin contar el +)
+  const validarTelefono = (pais, tel) => {
+    const dig = tel.replace(/\D/g, "");
+    return dig.length >= 7 && dig.length <= 15;
+  };
 
-  useEffect(() => {
-    setValidEmail(validarEmail(email));
-  }, [email]);
-
+  useEffect(() => setValidUsername(username.trim().length >= 3), [username]);
+  useEffect(() => setValidEmail(validarEmail(email)), [email]);
   useEffect(() => {
     validarPasswordRules(password);
     setPasswordsMatch(password !== "" && password === confirmPassword);
   }, [password, confirmPassword]);
+  useEffect(() => setEdadOk(validarEdad(fechaNacimiento)), [fechaNacimiento]);
+  useEffect(() => setTelefonoOk(telefono ? validarTelefono(telefonoPais, telefono) : true), [telefono, telefonoPais]);
 
-  useEffect(() => {
-    setEdadOk(validarEdad(fechaNacimiento));
-  }, [fechaNacimiento]);
-
-  // Estado global de validez del formulario
   const isFormValid =
     validUsername &&
     validEmail &&
@@ -87,17 +81,15 @@ export default function Registro() {
     passwordNumberOk &&
     passwordsMatch &&
     edadOk &&
-    aceptaPoliticas;
+    aceptaPoliticas &&
+    telefonoOk;
 
-  // Geolocalización
   const obtenerUbicacion = () => {
     if (!navigator.geolocation) {
       alert("Tu navegador no soporta geolocalización");
       return;
     }
-
     setCargandoUbicacion(true);
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -111,14 +103,12 @@ export default function Registro() {
     );
   };
 
-  // Envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMensaje("");
 
-    // Re-check defensivo
     if (!isFormValid) {
-      setMensaje(" Completa correctamente todos los campos antes de enviar.");
+      setMensaje("Completa correctamente todos los campos antes de enviar.");
       return;
     }
 
@@ -132,54 +122,54 @@ export default function Registro() {
           password,
           fechaNacimiento,
           ubicacion,
+          telefono: telefono ? telefono : null,
+          telefonoPais: telefonoPais ? telefonoPais : null,
         }),
       });
 
       const data = await res.json();
       if (res.ok) {
-        setMensaje(" Registro exitoso. ¡Bienvenido!");
-        // Limpiar formulario
+        setMensaje("Registro exitoso. ¡Bienvenido!");
         setUsername("");
         setEmail("");
         setPassword("");
         setConfirmPassword("");
         setFechaNacimiento("");
         setUbicacion("");
+        setTelefono("");
+        setTelefonoPais("+57");
         setAceptaPoliticas(false);
       } else {
-        setMensaje(` Error: ${data.error || "Error al registrar"}`);
+        setMensaje(`Error: ${data.error || "Error al registrar"}`);
       }
     } catch (error) {
       console.error("Error en el registro:", error);
-      setMensaje(" Error en la conexión con el servidor");
+      setMensaje("Error en la conexión con el servidor");
     }
   };
 
-  // Íconos de estado para feedback
+  // COMPONENTE Ok: declarado UNA sola vez
   const Ok = ({ ok }) =>
     ok ? (
-      <FaCheckCircle style={{ color: "#2ecc71", marginLeft: 8 }} aria-hidden />
+      <FaCheckCircle style={{ color: "#2ecc71", marginLeft: 8 }} />
     ) : (
-      <FaTimesCircle style={{ color: "#e74c3c", marginLeft: 8 }} aria-hidden />
+      <FaTimesCircle style={{ color: "#e74c3c", marginLeft: 8 }} />
     );
 
   return (
     <main className="main-content">
       <section className="login-section">
         <div className="overlay"></div>
-
         <div className="container position-relative">
           <div className="row justify-content-center">
-            <div className="col-md-7 col-lg-6">
+            <div className="col-md-8 col-lg-7">
               <div className="login-container p-4 p-md-5 shadow rounded">
                 <h1 className="text-center mb-4 text-white">Registro de Usuario</h1>
 
                 <form onSubmit={handleSubmit}>
                   {/* Usuario */}
                   <div className="mb-3">
-                    <label htmlFor="username" className="form-label text-white">
-                      Usuario
-                    </label>
+                    <label htmlFor="username" className="form-label text-white">Usuario</label>
                     <input
                       type="text"
                       id="username"
@@ -188,22 +178,12 @@ export default function Registro() {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       required
-                      aria-describedby="usernameHelp"
                     />
-                    <div id="usernameHelp" className="form-text text-light">
-                      {validUsername ? (
-                        <span style={{ color: "#3cd1d6ff" }}>Usuario válido</span>
-                      ) : (
-                        <span>Min. 3 caracteres.</span>
-                      )}
-                    </div>
                   </div>
 
-                  {/* Correo */}
+                  {/* Email */}
                   <div className="mb-3">
-                    <label htmlFor="email" className="form-label text-white">
-                      Correo electrónico
-                    </label>
+                    <label htmlFor="email" className="form-label text-white">Correo electrónico</label>
                     <input
                       type="email"
                       id="email"
@@ -212,22 +192,12 @@ export default function Registro() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      aria-describedby="emailHelp"
                     />
-                    <div id="emailHelp" className="form-text text-light">
-                      {validEmail ? (
-                        <span style={{ color: "#43d4daff" }}>Email válido</span>
-                      ) : (
-                        <span>Introduce un correo válido.</span>
-                      )}
-                    </div>
                   </div>
 
                   {/* Fecha de nacimiento */}
                   <div className="mb-3">
-                    <label htmlFor="fechaNacimiento" className="form-label text-white">
-                      Fecha de nacimiento
-                    </label>
+                    <label htmlFor="fechaNacimiento" className="form-label text-white">Fecha de nacimiento</label>
                     <input
                       type="date"
                       id="fechaNacimiento"
@@ -236,22 +206,45 @@ export default function Registro() {
                       onChange={(e) => setFechaNacimiento(e.target.value)}
                       max={fechaMax}
                       required
-                      aria-describedby="fechaHelp"
                     />
-                    <div id="fechaHelp" className="form-text text-light">
-                      {edadOk ? (
-                        <span style={{ color: "#37d7e2ff" }}>Edad válida (18+)</span>
-                      ) : (
-                        <span>Debes ser mayor de 18 años.</span>
-                      )}
+                  </div>
+
+                  {/* TELÉFONO con selector de país */}
+                  <div className="mb-3">
+                    <label className="form-label text-white">Teléfono</label>
+
+                    <div className="d-flex gap-2">
+                      <select
+                        className="form-select col-auto"
+                        style={{ maxWidth: 140 }}
+                        value={telefonoPais}
+                        onChange={(e) => setTelefonoPais(e.target.value)}
+                      >
+                        <option value="+57">Colombia (+57)</option>
+                        <option value="+1">EE. UU. / CAN (+1)</option>
+                        <option value="+34">España (+34)</option>
+                        <option value="+52">México (+52)</option>
+                        <option value="+44">Reino Unido (+44)</option>
+                        <option value="">Otro</option>
+                      </select>
+
+                      <input
+                        type="tel"
+                        className={`form-control ${telefono ? (telefonoOk ? "is-valid" : "is-invalid") : ""}`}
+                        placeholder="3001234567"
+                        value={telefono}
+                        onChange={(e) => setTelefono(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="form-text text-light">
+                      {telefono ? (telefonoOk ? <span>Teléfono válido</span> : <span>Teléfono inválido</span>) : <span>Opcional</span>}
                     </div>
                   </div>
 
                   {/* Ubicación */}
                   <div className="mb-3">
-                    <label htmlFor="ubicacion" className="form-label text-white">
-                      Ubicación
-                    </label>
+                    <label htmlFor="ubicacion" className="form-label text-white">Ubicación</label>
                     <select
                       id="ubicacion"
                       className="form-select"
@@ -273,19 +266,11 @@ export default function Registro() {
                     >
                       {cargandoUbicacion ? "Obteniendo ubicación..." : <><FaMapMarkerAlt /> Usar mi ubicación actual</>}
                     </button>
-
-                    {ubicacion && (
-                      <div className="mt-2 alert alert-info p-2 text-dark">
-                         {ubicacion}
-                      </div>
-                    )}
                   </div>
 
                   {/* Contraseña */}
                   <div className="mb-3 position-relative">
-                    <label htmlFor="password" className="form-label text-white">
-                      Contraseña
-                    </label>
+                    <label htmlFor="password" className="form-label text-white">Contraseña</label>
                     <div className="input-group">
                       <input
                         type={showPassword ? "text" : "password"}
@@ -294,20 +279,17 @@ export default function Registro() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
-                        aria-describedby="passwordHelp"
                       />
                       <span
                         className="input-group-text"
                         style={{ cursor: "pointer" }}
                         onClick={() => setShowPassword(!showPassword)}
-                        aria-label="Mostrar contraseña"
-                        role="button"
                       >
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </span>
                     </div>
 
-                    <div id="passwordHelp" className="form-text text-light mt-2">
+                    <div className="form-text text-light mt-2">
                       <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                         <div style={{ display: "flex", alignItems: "center" }}>
                           <Ok ok={passwordLengthOk} /> <span style={{ marginLeft: 6 }}>8+ caracteres</span>
@@ -324,9 +306,7 @@ export default function Registro() {
 
                   {/* Confirmar Contraseña */}
                   <div className="mb-3">
-                    <label htmlFor="confirmPassword" className="form-label text-white">
-                      Confirmar Contraseña
-                    </label>
+                    <label htmlFor="confirmPassword" className="form-label text-white">Confirmar Contraseña</label>
                     <input
                       type={showPassword ? "text" : "password"}
                       id="confirmPassword"
@@ -335,20 +315,9 @@ export default function Registro() {
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
                     />
-                    <div className="form-text text-light">
-                      {confirmPassword ? (
-                        passwordsMatch ? (
-                          <span style={{ color: "#4cddd1ff" }}>Las contraseñas coinciden</span>
-                        ) : (
-                          <span>Las contraseñas no coinciden</span>
-                        )
-                      ) : (
-                        <span>Repite la contraseña</span>
-                      )}
-                    </div>
                   </div>
 
-                  {/* Políticas de privacidad */}
+                  {/* Políticas */}
                   <div className="form-check mb-3">
                     <input
                       type="checkbox"
@@ -359,26 +328,17 @@ export default function Registro() {
                       required
                     />
                     <label htmlFor="politicas" className="form-check-label text-white">
-                      Acepto las{" "}
-                      <a href="/politicas" className="text-warning">
-                        políticas de privacidad
-                      </a>{" "}
-                      y los{" "}
-                      <a href="/terminos" className="text-warning">
-                        términos de uso
-                      </a>
-                      .
+                      Acepto las políticas de privacidad y términos de uso
                     </label>
                   </div>
 
-                  {/* Botón */}
                   <div className="d-grid mb-3">
                     <button type="submit" className="btn btn-success w-100" disabled={!isFormValid}>
                       {isFormValid ? "Registrarse" : "Completa los datos para registrarte"}
                     </button>
                   </div>
 
-                  {/* Enlace de inicio de sesión */}
+                  {/* ENLACE RESTAURADO: si ya tiene cuenta */}
                   <p className="text-center mt-2 text-white">
                     ¿Ya tienes cuenta?{" "}
                     <a href="/login" className="text-warning">
@@ -386,12 +346,7 @@ export default function Registro() {
                     </a>
                   </p>
 
-                  {/* Mensaje */}
-                  {mensaje && (
-                    <p className="text-center mt-3 text-light fw-bold">
-                      {mensaje}
-                    </p>
-                  )}
+                  {mensaje && <p className="text-center mt-3 text-light fw-bold">{mensaje}</p>}
                 </form>
               </div>
             </div>
