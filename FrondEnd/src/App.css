@@ -314,31 +314,53 @@ input.form-control:focus {
   transform: scale(1.05);
 }
 
-/* Íconos sociales */
-.social-icon {
-  font-size: 2rem;
+
+/* Botones sociales circulares iguales */
+.social-row { /* asegura centramiento vertical si hace falta */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* botón circular blanco con sombra */
+.social-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;        /* espacio entre círculo y logo */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  transition: transform .12s ease, box-shadow .12s ease;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.social-icon:hover {
-  transform: scale(1.2);
-  opacity: 0.8;
+/* tamaño uniforme del logo dentro del botón */
+.social-logo {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
 }
 
-/* Colores por red */
-.social-icon.google {
-  color: #db4437;
+/* hover */
+.social-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
 
-.social-icon.facebook {
-  color: #1877f2;
+/* ajustar el toggle de contraseña para que no sea tan grueso */
+.password-toggle {
+  cursor: pointer;
+  background: transparent !important;
+  border-left: none !important;
+  padding: 6px 8px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.social-icon.gmail {
-  color: #c71610;
-}
-
-.social-icon.instagram {
-  color: #e1306c;
-}
+/* Si la paleta del fondo es oscura, el botón blanco destaca; si quieres más pequeño, reduce width/height */

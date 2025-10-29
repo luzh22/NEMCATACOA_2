@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  FaEye,
-  FaEyeSlash,
-  FaGoogle,
-  FaFacebookF,
-  FaEnvelope,
-  FaInstagram,
-} from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -18,20 +11,17 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Enviando login:", { username, password });
-
+    // lógica de login...
     try {
       const res = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
-
       const data = await res.json();
-      console.log("Respuesta del backend:", data);
       setMessage(data.message);
     } catch (err) {
-      console.error("Error al conectar con el backend:", err);
+      console.error(err);
       setMessage("Error al conectar con el servidor");
     }
   };
@@ -43,20 +33,16 @@ export default function Login() {
   return (
     <main className="main-content">
       <section className="login-section">
-        <div className="overlay"></div>
+        <div className="overlay" />
         <div className="container position-relative">
           <div className="row justify-content-center">
             <div className="col-md-6 col-lg-5">
               <div className="login-container p-4 p-md-5 shadow rounded">
-                <h1 className="text-center mb-4 text-white animate__animated animate__fadeInDown">
+                <h1 className="text-center mb-4 text-white">
                   Inicio de Sesión
                 </h1>
 
-                <form
-                  onSubmit={handleSubmit}
-                  className="animate__animated animate__fadeInUp"
-                >
-                  {/* Usuario */}
+                <form onSubmit={handleSubmit} className="animate__animated animate__fadeInUp">
                   <div className="mb-3">
                     <label htmlFor="username" className="form-label text-white">
                       Usuario
@@ -71,7 +57,6 @@ export default function Login() {
                     />
                   </div>
 
-                  {/* Contraseña */}
                   <div className="mb-3 position-relative">
                     <label htmlFor="password" className="form-label text-white">
                       Contraseña
@@ -84,66 +69,101 @@ export default function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
+                        style={{
+                          borderRight: "none",
+                          borderWidth: "1px",
+                        }}
                       />
                       <span
-                        className="input-group-text"
-                        style={{
-                          cursor: "pointer",
-                          backgroundColor: "white",
-                          borderLeft: "none",
-                        }}
+                        className="input-group-text password-toggle"
                         onClick={() => setShowPassword(!showPassword)}
+                        aria-label="Mostrar contraseña"
+                        role="button"
                       >
                         {showPassword ? <FaEyeSlash /> : <FaEye />}
                       </span>
                     </div>
                   </div>
 
-                  {/* Botón principal */}
                   <div className="d-grid mb-3">
-                    <button
-                      type="submit"
-                      className="btn btn-primary w-100 login-btn"
-                    >
+                    <button type="submit" className="btn btn-primary w-100 login-btn">
                       Entrar
                     </button>
                   </div>
 
-                  {/* Enlace de recuperación */}
                   <p className="text-center mt-2">
                     <a href="/recuperar" className="forgot-password-link">
                       ¿Olvidaste tu contraseña?
                     </a>
                   </p>
 
-                  {/* Separador */}
                   <div className="text-center text-light my-3">
                     <hr className="text-light" />
                     <span>O inicia sesión con</span>
                     <hr className="text-light" />
                   </div>
 
-                  {/* Botones simples de redes */}
-                  <div className="d-flex justify-content-center gap-3 mb-3">
-                    <FaGoogle
-                      className="social-icon google"
+                  {/* botones sociales: idénticos, circulares, centrados */}
+                  <div className="social-row d-flex justify-content-center gap-3 mb-3">
+                    <button
+                      type="button"
+                      className="social-btn"
                       onClick={() => handleLogin("Google")}
-                    />
-                    <FaFacebookF
-                      className="social-icon facebook"
+                      aria-label="Iniciar sesión con Google"
+                      title="Google"
+                    >
+                     <img
+ 
+                       src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                       alt="Google"
+                        className="social-logo"
+                   />
+
+                    </button>
+
+                    <button
+                      type="button"
+                      className="social-btn"
                       onClick={() => handleLogin("Facebook")}
-                    />
-                    <FaEnvelope
-                      className="social-icon gmail"
+                      aria-label="Iniciar sesión con Facebook"
+                      title="Facebook"
+                    >
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_(2019).png"
+                        alt="Facebook"
+                        className="social-logo"
+                      />
+                    </button>
+
+                    <button
+                      type="button"
+                      className="social-btn"
                       onClick={() => handleLogin("Gmail")}
-                    />
-                    <FaInstagram
-                      className="social-icon instagram"
+                      aria-label="Iniciar sesión con Gmail"
+                      title="Gmail"
+                    >
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_(2020).svg"
+                        alt="Gmail"
+                        className="social-logo"
+                      />
+                    </button>
+
+                    <button
+                      type="button"
+                      className="social-btn"
                       onClick={() => handleLogin("Instagram")}
-                    />
+                      aria-label="Iniciar sesión con Instagram"
+                      title="Instagram"
+                    >
+                      <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                        alt="Instagram"
+                        className="social-logo"
+                      />
+                    </button>
                   </div>
 
-                  {/* Mensaje del backend */}
                   {message && <p className="text-center text-light mt-3">{message}</p>}
                 </form>
               </div>
