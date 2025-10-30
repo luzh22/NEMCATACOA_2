@@ -81,6 +81,8 @@ export default function Inicio() {
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"></button>
           </div>
 
           {/* Imágenes */}
@@ -96,6 +98,12 @@ export default function Inicio() {
             </div>
             <div className="carousel-item">
               <img src="/IMG/img4.png" className="carousel-fixed" alt="Slide 4" />
+            </div>
+            <div className="carousel-item">
+              <img src="/IMG/CALI.png" className="carousel-fixed" alt="Slide 5" />
+            </div>
+            <div className="carousel-item">
+              <img src="/IMG/BOGOTA.png" className="carousel-fixed" alt="Slide 6" />
             </div>
           </div>
 
