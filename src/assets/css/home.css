@@ -1,0 +1,27 @@
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-img {
+  height: 85vh;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.carousel-caption {
+  bottom: 25%;
+}
+
+.about-section {
+  background: #f8f9fa;
+}
+
+.history-section img {
+  border-radius: 10px;
+}
+
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}

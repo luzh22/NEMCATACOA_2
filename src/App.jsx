@@ -10,17 +10,20 @@ import RecuperarContrasena from "./pages/RecuperarContrasena";
 import RouteDetail from "./pages/RouteDetail";
 
 // Importación de componentes / páginas
+import Home from "./pages/home"
 import Navbar from "./components/Navbar";
-import Home from "./pages/Inicio";
+import Inicio from "./pages/Inicio";
 import Login from "./pages/Login";
 import Register from "./pages/Registro";
+
 
 export default function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+         <Route path="/" element={<Home />} />       
+        <Route path="/" element={<Inicio />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Register />} />
         <Route path="/recuperar" element={<RecuperarContrasena />} />

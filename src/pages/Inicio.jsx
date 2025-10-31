@@ -65,7 +65,7 @@ export default function Inicio() {
       <main className="main-content">
       <section className="home-section text-center">
         <div className="container">
-          <h1>¿Listo para conocer NEMCATACOA?</h1>
+          <h1 id="carrusel">¿Listo para conocer NEMCATACOA?</h1>
           <p className="lead">Tecnología que honra países</p>
         </div>
 
@@ -126,12 +126,7 @@ export default function Inicio() {
           </button>
         </div>
 
-        {/* Botón CTA */}
-        <div className="mt-5">
-          <Link to="/register" className="btn btn-primary btn-lg shadow">
-            Quiero conocer más
-          </Link>
-        </div>
+       
 
         {/* Buscador y grid movidos a una sección separada (routes-section) */}
       </section>

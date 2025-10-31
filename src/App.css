@@ -1,36 +1,8 @@
-/* 🔹 FOOTER */
-.footer {
-  width: 100%;
-  background: #1e293b;
-  color: #fff;
-  padding: 18px 0;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  margin-top: 40px;
-}
 
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  font-size: 1rem;
-}
 
-.footer a {
-  color: #4bceb4;
-  text-decoration: none;
-  font-weight: 500;
-}
-.footer a:hover {
-  text-decoration: underline;
-}
 /* 🔹 CARRUSEL - Mantengo medidas pero más responsivo */
 .carousel-fixed {
-  width: 800px;
+  width: 1100px;
   max-width: 100%;
   height: 400px;
   max-height: 400px;
@@ -72,22 +44,10 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #1abc9c, #2c3e50);
-   padding-top: 80px; /* espacio para el navbar fijo */
+  padding-top: 80px; /* espacio para el navbar fijo */
 }
 
 🔹 NAVBAR 
-
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: background-color 0.4s ease-out;
-  background-color: rgba(255,255,255,0.8);
-  backdrop-filter: blur(6px);
-}
 
 .navbar.scrolled {
   background-color: #ffffff;
@@ -116,40 +76,11 @@ body {
 
 /* 🔹 HOME */
 
-.home-section,
-.register-section {
-  min-height: 100vh;
-  padding: 20px;
-  margin: 100px auto 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-  box-shadow: none;
-  border-radius: 0;
-  width: 80%;
-  max-width: 1200px;
-  margin: 40px auto 100px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  background: #fff;
-  padding: 32px 24px;
-}
 
-
-/* 🔹 LOGIN */
-.login-section {
-  display: flex;
-  justify-content: center;
-}
 
 
 
 🔹 LOGIN
-
-
-
 /* Login/Register contenedor */
 .login-container {
   background: #fff;
@@ -160,52 +91,6 @@ body {
   max-width: 700px;
   padding: 48px 32px 48px 32px;
   margin: 0 auto;
-}
-
-/* 🔹 MAIN CONTENT - evita que el contenido quede debajo del navbar */
-.main-content {
-  padding: 0;
-  padding-top: 50px; /* Espacio dinámico para el navbar */
-  margin: 5;
-  min-height: 100vh;
-  
-}
-
-/* 🔹 TEXTOS */
-h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-p.lead {
-  font-size: 1.25rem;
-  color: #555;
-}
-
-
-
-
-
-/* Botón */
-button.btn {
-  font-size: 1.1rem;
-  padding: 10px;
-}
-
-/* 🔹 RESPONSIVE */
-@media (max-width: 768px) {
-  .carousel-fixed {
-    width: 100%;
-    height: auto;
-  }
-
-  .home-section,
-  .register-section,
-  .login-section {
-    margin: 80px 10px 20px;
-    padding: 20px;
-  }
 }
 
 /* Fondo del login */
@@ -268,11 +153,7 @@ button.btn {
   }
 }
 
-/* Campos e interfaz */
-.form-label,
-.text-white {
-  color: #f5f5f5 !important;
-}
+
 
 input.form-control {
   background-color: rgba(255, 255, 255, 0.6);
@@ -363,16 +244,13 @@ input.form-control:focus {
   justify-content: center;
 }
 
-/* Si la paleta del fondo es oscura, el botón blanco destaca; si quieres más pequeño, reduce width/height */
-
-
 /* Sección de rutas culturales (separada del home/carrusel) */
 .routes-section {
   background: linear-gradient(180deg, rgba(59,130,246,0.04), rgba(99,102,241,0.03));
   padding: 48px 12px;
 }
 .routes-container {
-  max-width: 1100px;
+ width: 100%;
   margin: 0 auto;
   padding: 18px;
   background: linear-gradient(180deg, #ffffff, #fbfdff);
