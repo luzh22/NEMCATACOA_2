@@ -1,0 +1,74 @@
+/* ======== City Card Styles ======== */
+
+.city-card {
+  max-width: 900px;        /* limita el ancho máximo */
+  margin: 0 auto 2rem;     /* centra horizontalmente */
+  padding: 0 1.5rem;       /* espacio lateral */
+}
+
+/* Imagen contenedora */
+.city-img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, rgba(0,0,0,0.03), rgba(0,0,0,0.06));
+  border-radius: 12px;
+}
+
+/* Imagen */
+.city-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.city-img:hover {
+  transform: scale(1.03);
+}
+
+/* Badges */
+.city-badges {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+/* Texto resumen */
+.city-summary {
+  color: #4b5563; /* gray-600 */
+  margin-top: 0.75rem;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* Título */
+.city-card .card-title {
+  font-weight: 700;
+  text-align: center; /* centramos título */
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .city-card {
+    padding: 0 1rem;
+  }
+  .city-img-wrap {
+    height: 170px;
+  }
+}
+
+@media (max-width: 576px) {
+  .city-card {
+    padding: 0 0.75rem;
+  }
+  .city-img-wrap {
+    height: 160px;
+  }
+}
