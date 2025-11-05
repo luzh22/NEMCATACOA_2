@@ -363,4 +363,128 @@ input.form-control:focus {
   justify-content: center;
 }
 
-/* Si la paleta del fondo es oscura, el botón blanco destaca; si quieres más pequeño, reduce width/height */
+/* ---- Modal de bienvenida personalizado (NEMCATACOA) ---- */
+.nm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.nm-modal-card {
+  width: 100%;
+  max-width: 520px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,248,250,0.98));
+  color: #0b1220;
+  border-radius: 14px;
+  box-shadow: 0 14px 40px rgba(2,6,23,0.45);
+  padding: 28px;
+  text-align: center;
+  transform: translateY(16px);
+  animation: nmModalIn 360ms ease forwards;
+}
+
+@keyframes nmModalIn {
+  from { opacity: 0; transform: translateY(32px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.nm-modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #0b2a2a;
+}
+
+.nm-modal-body {
+  font-size: 1rem;
+  margin-bottom: 18px;
+  color: #1b2b2b;
+}
+
+.nm-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 480px) {
+  .nm-modal-card { padding: 18px; }
+  .nm-modal-title { font-size: 1.25rem; }
+}
+
+/* === 🌿 Animación del modal de bienvenida === */
+
+.modal.fade .modal-dialog {
+  transform: translateY(-50px);
+  opacity: 0;
+  transition: all 0.6s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Fondo con textura suave y brillo */
+.modal-content {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+  border-radius: 16px;
+  border: 2px solid #4bceb4;
+  box-shadow: 0 0 25px rgba(75, 206, 180, 0.5);
+  animation: culturalGlow 2s infinite alternate;
+}
+
+/* Título con efecto de aparición */
+.modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #00796b;
+  animation: fadeIn 1.2s ease-in-out forwards;
+}
+
+/* Frase inspiradora */
+.modal-body p {
+  font-size: 1.2rem;
+  color: #004d40;
+  animation: fadeInUp 1.2s ease-in-out;
+}
+
+/* Botón de "Gracias" */
+.btn-cultural {
+  background: #00796b;
+  color: white;
+  border-radius: 25px;
+  padding: 10px 25px;
+  font-weight: bold;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-cultural:hover {
+  background: #009688;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 150, 136, 0.4);
+}
+
+/* === Animaciones === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes culturalGlow {
+  from { box-shadow: 0 0 15px rgba(0, 150, 136, 0.4); }
+  to { box-shadow: 0 0 30px rgba(0, 150, 136, 0.7); }
+}
