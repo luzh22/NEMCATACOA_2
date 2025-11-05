@@ -1,4 +1,4 @@
-// src/pages/Registro.jsx
+
 import React, { useState, useEffect, useRef } from "react";
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,7 +10,7 @@ import {
   FaTimesCircle,
   FaSearch,
 } from "react-icons/fa";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+
 import { useNavigate } from "react-router-dom";
 
 export default function Registro() {
@@ -626,7 +626,7 @@ export default function Registro() {
         </div>
 
         {/* ---------------------------
-            MODAL DE BIENVENIDA (persistente)
+            MODAL DE BIENVENIDA 
            --------------------------- */}
         {showWelcomeModal && (
           <div

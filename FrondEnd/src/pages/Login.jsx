@@ -105,21 +105,7 @@ export default function Login() {
 
                   {/* botones sociales: idénticos, circulares, centrados */}
                   <div className="social-row d-flex justify-content-center gap-3 mb-3">
-                    <button
-                      type="button"
-                      className="social-btn"
-                      onClick={() => handleLogin("Google")}
-                      aria-label="Iniciar sesión con Google"
-                      title="Google"
-                    >
-                     <img
- 
-                       src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                       alt="Google"
-                        className="social-logo"
-                   />
-
-                    </button>
+                   
 
                     <button
                       type="button"
@@ -149,19 +135,7 @@ export default function Login() {
                       />
                     </button>
 
-                    <button
-                      type="button"
-                      className="social-btn"
-                      onClick={() => handleLogin("Instagram")}
-                      aria-label="Iniciar sesión con Instagram"
-                      title="Instagram"
-                    >
-                      <img
-                        src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                        alt="Instagram"
-                        className="social-logo"
-                      />
-                    </button>
+                    
                   </div>
 
                   {message && <p className="text-center text-light mt-3">{message}</p>}
