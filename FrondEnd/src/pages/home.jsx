@@ -7,21 +7,31 @@ import Footer from "../components/Footer";
 
 export default function Home() {
   useEffect(() => {
-    // Inicializar carrusel de Bootstrap
-    if (window.bootstrap && window.bootstrap.Carousel) {
+    // Inicializar carrusel de Bootstrap de forma robusta
+    const initializeCarousel = () => {
       const el = document.getElementById("heroCarousel");
-      if (el) new window.bootstrap.Carousel(el, { interval: 5000, ride: "carousel" });
-    }
+      if (el && window.bootstrap && window.bootstrap.Carousel) {
+        // Si el elemento y Bootstrap están listos, inicializa
+        new window.bootstrap.Carousel(el, { interval: 5000, ride: "carousel" });
+      } else {
+        // Si no están listos, espera 100ms e intenta de nuevo
+        // Esto ayuda si el JS de Bootstrap tarda un poco más en cargar
+        setTimeout(initializeCarousel, 100); 
+      }
+    };
+    
+    initializeCarousel();
+    
   }, []);
 
   return (
     <>
       {/* HERO con Carrusel */}
+      {/* ... (el resto del JSX es idéntico al que enviaste) ... */}
       <section className="hero-section text-center text-white">
         <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
               <img src="/IMG/BOGOTA.png" className="d-block w-100 hero-img" alt="Colombia" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Bienvenido a NEMCATACOA</h1>
@@ -30,7 +40,6 @@ export default function Home() {
               </div>
             </div>
             <div className="carousel-item">
-              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
               <img src="/IMG/img2.png" className="d-block w-100 hero-img" alt="Cultura" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Descubre la esencia de Colombia</h1>
@@ -38,7 +47,6 @@ export default function Home() {
               </div>
             </div>
             <div className="carousel-item">
-              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
               <img src="/IMG/img3.png" className="d-block w-100 hero-img" alt="Naturaleza" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Rutas que cuentan historias</h1>
@@ -49,7 +57,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PARALLAX BANNER */}
       <section className="parallax-banner">
         <div className="overlay">
           <h2 className="display-6 fw-bold mb-3">Explora Colombia desde otra perspectiva</h2>
@@ -60,7 +67,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SOBRE NEMCATACOA */}
       <section className="about-section py-5 bg-light text-center">
         <div className="container">
           <h2 className="fw-bold mb-3">¿Qué es NEMCATACOA?</h2>
@@ -72,7 +78,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HISTORIA DE COLOMBIA */}
       <section className="history-section py-5">
         <div className="container">
           <h2 className="fw-bold text-center mb-4">Un poco de historia</h2>
@@ -99,7 +104,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* RUTAS DESTACADAS */}
       <section className="routes-section py-5 bg-light">
         <div className="container">
           <h2 className="fw-bold text-center mb-4">Rutas destacadas</h2>

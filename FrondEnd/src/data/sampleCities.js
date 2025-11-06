@@ -1,3 +1,5 @@
+
+
 const cities = [
   {
     id: 'bogota',
@@ -255,4 +257,4 @@ pointsOfInterest: [
 ];
 
 export default cities;
-export { cities };
+

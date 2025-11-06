@@ -166,7 +166,8 @@ button.btn {
 
 /* Fondo del login */
 .login-section {
-  background-image: url("/IMG/login.png");
+  background-image: url('../public/IMG/login.png');
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
