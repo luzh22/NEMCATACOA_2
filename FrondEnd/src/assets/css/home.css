@@ -1,0 +1,64 @@
+/* ==============================
+   SECCIÓN PARALLAX BANNER
+   ============================== */
+
+.parallax-banner {
+  position: relative;
+  height: 70vh;
+ background-image: url("/IMG/img1.png");
+/* Puedes cambiar la imagen */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.parallax-banner .overlay {
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.parallax-banner h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.parallax-banner p {
+  font-size: 1.1rem;
+  max-width: 700px;
+}
+
+.parallax-banner .btn-outline-light {
+  border-width: 2px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.parallax-banner .btn-outline-light:hover {
+  background-color: #fff;
+  color: #0d6efd;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .parallax-banner {
+    height: 60vh;
+  }
+  .parallax-banner h2 {
+    font-size: 1.6rem;
+  }
+  .parallax-banner p {
+    font-size: 1rem;
+  }
+}
