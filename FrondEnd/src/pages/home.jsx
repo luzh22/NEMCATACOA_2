@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 
 export default function Home() {
   useEffect(() => {
-    // Inicializar carrusel
+    // Inicializar carrusel de Bootstrap
     if (window.bootstrap && window.bootstrap.Carousel) {
       const el = document.getElementById("heroCarousel");
       if (el) new window.bootstrap.Carousel(el, { interval: 5000, ride: "carousel" });
@@ -16,12 +16,13 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO */}
+      {/* HERO con Carrusel */}
       <section className="hero-section text-center text-white">
         <div id="heroCarousel" className="carousel slide" data-bs-ride="carousel">
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="./IMG/img1.png" className="d-block w-100 hero-img" alt="Colombia" />
+              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
+              <img src="/IMG/BOGOTA.png" className="d-block w-100 hero-img" alt="Colombia" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Bienvenido a NEMCATACOA</h1>
                 <p>Conectando tecnología, cultura y territorio colombiano.</p>
@@ -29,20 +30,33 @@ export default function Home() {
               </div>
             </div>
             <div className="carousel-item">
-              <img src="/IMG/colombia2.jpg" className="d-block w-100 hero-img" alt="Cultura" />
+              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
+              <img src="/IMG/img2.png" className="d-block w-100 hero-img" alt="Cultura" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Descubre la esencia de Colombia</h1>
                 <p>Una experiencia inmersiva de historia, arte y gastronomía.</p>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="/IMG/colombia3.jpg" className="d-block w-100 hero-img" alt="Naturaleza" />
+              {/* RUTA CORREGIDA: Se utiliza la ruta raíz /IMG/... */}
+              <img src="/IMG/img3.png" className="d-block w-100 hero-img" alt="Naturaleza" />
               <div className="carousel-caption">
                 <h1 className="display-5 fw-bold">Rutas que cuentan historias</h1>
                 <p>Viaja por las ciudades que marcaron nuestra identidad.</p>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* PARALLAX BANNER */}
+      <section className="parallax-banner">
+        <div className="overlay">
+          <h2 className="display-6 fw-bold mb-3">Explora Colombia desde otra perspectiva</h2>
+          <p className="lead mb-4">
+            Conecta con la cultura, la historia y la naturaleza a través de nuestras rutas digitales.
+          </p>
+          <Link to="/inicio" className="btn btn-outline-light">Ver rutas destacadas</Link>
         </div>
       </section>
 
@@ -150,7 +164,3 @@ export default function Home() {
     </>
   );
 }
-
-
-
-

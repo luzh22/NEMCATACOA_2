@@ -1,83 +1,13 @@
-/* 🔹 FOOTER */
-.footer {
-  width: 100%;
-  background: #1e293b;
-  color: #fff;
-  padding: 18px 0;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  margin-top: 40px;
-}
-
-.footer-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.5rem;
-  font-size: 1rem;
-}
-
-.footer a {
-  color: #4bceb4;
-  text-decoration: none;
-  font-weight: 500;
-}
-.footer a:hover {
-  text-decoration: underline;
-}
-/* 🔹 CARRUSEL - Mantengo medidas pero más responsivo */
-.carousel-fixed {
-  width: 800px;
-  max-width: 100%;
-  height: 400px;
-  max-height: 400px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  margin: 0 auto;
-  padding: 0;
-}
-
-/* Centrado del carrusel */
-#carouselExampleIndicators {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 30px auto 0 auto;
-  background: transparent;
-  border-radius: 10px;
-  padding: 0;
-}
-
-.carousel-fixed img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  margin: 0 auto;
-  border-radius: 10px;
-  background: transparent;
-  display: block;
-}
-
 /* 🔹 BODY */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
   background: linear-gradient(135deg, #1abc9c, #2c3e50);
-   padding-top: 80px; /* espacio para el navbar fijo */
+  padding-top: 80px; /* espacio para el navbar fijo */
 }
 
-🔹 NAVBAR 
-
+/* 🔹 NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
@@ -85,7 +15,7 @@ body {
   right: 0;
   z-index: 1000;
   transition: background-color 0.4s ease-out;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
 }
 
@@ -114,61 +44,92 @@ body {
   transform: scale(1.1);
 }
 
-/* 🔹 HOME */
+/* =====================================================
+   🌄 HERO DINÁMICO (reemplaza carrusel)
+===================================================== */
+.hero-dynamic {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
 
-.home-section,
-.register-section {
-  min-height: 100vh;
-  padding: 20px;
-  margin: 100px auto 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-  box-shadow: none;
-  border-radius: 0;
-  width: 80%;
-  max-width: 1200px;
-  margin: 40px auto 100px auto;
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: brightness(0.8);
+  transform: scale(1.05);
+  z-index: 1;
+  transition: transform 10s ease-in-out;
+}
+
+.hero-dynamic:hover .hero-img {
+  transform: scale(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  z-index: 2;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  border-radius: 16px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-  background: #fff;
-  padding: 32px 24px;
-}
-
-
-/* 🔹 LOGIN */
-.login-section {
-  display: flex;
   justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
-
-
-🔹 LOGIN
-
-
-
-/* Login/Register contenedor */
-.login-container {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
-  border: 2px solid #1976d2;
-  width: 100%;
-  max-width: 700px;
-  padding: 48px 32px 48px 32px;
-  margin: 0 auto;
+.hero-overlay h1,
+.hero-overlay p {
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
 }
 
-/* 🔹 MAIN CONTENT - evita que el contenido quede debajo del navbar */
+.hero-overlay .btn {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Efecto scroll parallax suave */
+@keyframes heroParallax {
+  from { background-position: center 0; }
+  to { background-position: center 100px; }
+}
+
+.hero-dynamic {
+  animation: heroParallax 10s ease-in-out infinite alternate;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .hero-dynamic {
+    height: 70vh;
+  }
+  .hero-overlay h1 {
+    font-size: 1.8rem;
+  }
+  .hero-overlay p {
+    font-size: 1rem;
+  }
+}
+
+/* =====================================================
+   🔹 MAIN CONTENT
+===================================================== */
 .main-content {
   padding: 0;
-  padding-top: 50px; /* Espacio dinámico para el navbar */
-  margin: 5;
+  padding-top: 50px;
+  margin: 0;
   min-height: 100vh;
-  
 }
 
 /* 🔹 TEXTOS */
@@ -183,29 +144,24 @@ p.lead {
   color: #555;
 }
 
-
-
-
-
 /* Botón */
 button.btn {
   font-size: 1.1rem;
   padding: 10px;
 }
 
-/* 🔹 RESPONSIVE */
-@media (max-width: 768px) {
-  .carousel-fixed {
-    width: 100%;
-    height: auto;
-  }
-
-  .home-section,
-  .register-section,
-  .login-section {
-    margin: 80px 10px 20px;
-    padding: 20px;
-  }
+/* =====================================================
+   🔹 LOGIN / REGISTER
+===================================================== */
+.login-container {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+  border: 2px solid #1976d2;
+  width: 100%;
+  max-width: 700px;
+  padding: 48px 32px;
+  margin: 0 auto;
 }
 
 /* Fondo del login */
@@ -241,15 +197,12 @@ button.btn {
   position: relative;
   z-index: 2;
   border: 1px solid rgba(255, 255, 255, 0.25);
-  
-  /* Efectos y animaciones */
   opacity: 0;
   transform: translateY(25px);
   animation: fadeSlideIn 1s ease forwards;
   transition: all 0.4s ease;
 }
 
-/* Efecto al pasar el mouse */
 .login-container:hover {
   transform: translateY(-5px) scale(1.03);
   background-color: rgba(255, 255, 255, 0.18);
@@ -258,14 +211,8 @@ button.btn {
 
 /* Animación de aparición */
 @keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Campos e interfaz */
@@ -287,7 +234,7 @@ input.form-control:focus {
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 
-/* Botón */
+/* Botón principal */
 .btn-primary {
   background-color: #4e54c8;
   border: none;
@@ -314,15 +261,13 @@ input.form-control:focus {
   transform: scale(1.05);
 }
 
-
-/* Botones sociales circulares iguales */
-.social-row { /* asegura centramiento vertical si hace falta */
+/* Botones sociales */
+.social-row {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* botón circular blanco con sombra */
 .social-btn {
   width: 48px;
   height: 48px;
@@ -332,13 +277,12 @@ input.form-control:focus {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;        /* espacio entre círculo y logo */
+  padding: 6px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.12);
   transition: transform .12s ease, box-shadow .12s ease;
   cursor: pointer;
 }
 
-/* tamaño uniforme del logo dentro del botón */
 .social-logo {
   width: 26px;
   height: 26px;
@@ -346,21 +290,9 @@ input.form-control:focus {
   display: block;
 }
 
-/* hover */
 .social-btn:hover {
   transform: translateY(-3px) scale(1.03);
   box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-}
-
-/* ajustar el toggle de contraseña para que no sea tan grueso */
-.password-toggle {
-  cursor: pointer;
-  background: transparent !important;
-  border-left: none !important;
-  padding: 6px 8px !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /* ---- Modal de bienvenida personalizado (NEMCATACOA) ---- */
@@ -391,7 +323,7 @@ input.form-control:focus {
 
 @keyframes nmModalIn {
   from { opacity: 0; transform: translateY(32px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .nm-modal-title {
@@ -413,14 +345,7 @@ input.form-control:focus {
   gap: 12px;
 }
 
-/* Ajustes responsivos */
-@media (max-width: 480px) {
-  .nm-modal-card { padding: 18px; }
-  .nm-modal-title { font-size: 1.25rem; }
-}
-
-/* === 🌿 Animación del modal de bienvenida === */
-
+/* Animaciones de modal */
 .modal.fade .modal-dialog {
   transform: translateY(-50px);
   opacity: 0;
@@ -432,7 +357,6 @@ input.form-control:focus {
   opacity: 1;
 }
 
-/* Fondo con textura suave y brillo */
 .modal-content {
   background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
   border-radius: 16px;
@@ -441,7 +365,6 @@ input.form-control:focus {
   animation: culturalGlow 2s infinite alternate;
 }
 
-/* Título con efecto de aparición */
 .modal-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
@@ -449,14 +372,12 @@ input.form-control:focus {
   animation: fadeIn 1.2s ease-in-out forwards;
 }
 
-/* Frase inspiradora */
 .modal-body p {
   font-size: 1.2rem;
   color: #004d40;
   animation: fadeInUp 1.2s ease-in-out;
 }
 
-/* Botón de "Gracias" */
 .btn-cultural {
   background: #00796b;
   color: white;
@@ -473,7 +394,6 @@ input.form-control:focus {
   box-shadow: 0 0 15px rgba(0, 150, 136, 0.4);
 }
 
-/* === Animaciones === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
